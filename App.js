@@ -9,16 +9,18 @@ export default function App() {
       <Text>😊와우</Text>
       <View style={styles.productCard}>
         <View>
-          <Image source={AccImg1} style={styles.productImage} />
+          <Image source={AccImg1} style={styles.productImage} resizeMode={"contain"} />
         </View>
         <View style={styles.porductContent}>
-          <Text>하네스</Text>
-          <Text>50000원</Text>
+          <Text style={styles.productName}>하네스</Text>
+          <Text style={styles.productPrice}>50000원</Text>
         </View>
-        <View style={styles.productSeller}>
-          <Image source={Avatar} style={styles.productAvatar} />
-          <Text>도기멍</Text>
-          <Text>1분전</Text>
+        <View style={styles.productFooter}>
+          <View style={styles.productSeller}>
+            <Image source={Avatar} style={styles.productAvatar} />
+            <Text style={styles.productSellerName}>도기멍</Text>
+          </View>
+          <Text style={styles.productDate}>1분전</Text>
         </View>
       </View>
     </View>
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   productImage: {
+    //숫자나 %만 사용 //px,em,rem등 사용안됌
     width: "100%",
     height: 210,
   },
@@ -56,5 +59,28 @@ const styles = StyleSheet.create({
   productAvatar: {
     width: 24,
     height: 24,
+  },
+  productFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 12,
+    padding: 8,
+  },
+  /* 교안 => UX/UI 부분에 휴대폰개발시 가이드 확인 */
+  /* 리엑트 네이티브는 폰트패밀리를 적용하지 않는다!!!=> 휴대폰내장되어있는 글씨체 사용(속도때문) */
+  productName: {
+    fontSize: 16,
+  },
+  productPrice: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 8,
+  },
+  productSellerName: {
+    fontSize: 16,
+  },
+  productDate: {
+    fontSize: 16,
   },
 });
