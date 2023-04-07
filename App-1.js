@@ -20,6 +20,7 @@ export default function App() {
 
   const WIDTH = Dimensions.get(`window`).width;
   //Dimensions => width를 조정해주는 애 => window에 너비를 가져와 width 함수에 담음
+  const [isVertical, setIsVertical] = useState(false);
   const COUNT = 2;
 
   useEffect(() => {
@@ -38,14 +39,23 @@ export default function App() {
       .catch((error) => console.log(error));
   }, []);
 
-  const baseOptions = {
-    vertical: false,
-    width: WIDTH / COUNT,
-    height: WIDTH / 2,
-    style: {
-      width: WIDTH,
-    },
-  };
+  const baseOptions = isVertical
+    ? {
+        vertical: true,
+        width: WIDTH,
+        height: WIDTH / 2 / COUNT,
+        style: {
+          height: WIDTH / 2,
+        },
+      } //지워도 되는 부분
+    : {
+        vertical: false,
+        width: WIDTH / COUNT,
+        height: WIDTH / 2,
+        style: {
+          width: WIDTH,
+        },
+      };
 
   return (
     <SafeAreaView>
@@ -67,13 +77,21 @@ export default function App() {
               autoPlay={true}
               width={WIDTH}
               height={300}
-              sliderWidth={Dimensions.get(`window`).width}
+              sliderWidth={Dimensions.get(`window`).width / 2}
               itemWidth={WIDTH / 2}
               itemHeight={300}
               data={banners}
               renderItem={(object) => {
                 console.log(object.item, "object");
-                return <Image source={{ uri: `${API_URL}/${object.item.imageUrl}` }} style={styles.bannerImage} />;
+                return (
+                  <View
+                    onPress={() => {
+                      setIsVertical(isVertical);
+                    }}
+                  >
+                    <Image source={{ uri: `${API_URL}/${object.item.imageUrl}` }} style={styles.bannerImage} />
+                  </View>
+                );
               }}
             />
           </TouchableOpacity>
